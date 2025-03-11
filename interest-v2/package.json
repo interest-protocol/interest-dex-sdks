@@ -18,7 +18,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "",
   "scripts": {
     "init": "tsx ./src/scripts/init.script.ts",

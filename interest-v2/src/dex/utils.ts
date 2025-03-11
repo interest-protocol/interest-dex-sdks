@@ -101,9 +101,7 @@ export const toConfig = (resources: MoveResource[], network: Network) => {
   };
 };
 
-const SUI_ADDRESS_LENGTH = 32;
-
-export function normalizeSuiAddress(
+export function normalizeAddress(
   value: string,
   forceAdd0x: boolean = false
 ): string {
@@ -111,7 +109,7 @@ export function normalizeSuiAddress(
   if (!forceAdd0x && address.startsWith('0x')) {
     address = address.slice(2);
   }
-  return `0x${address.padStart(SUI_ADDRESS_LENGTH * 2, '0')}`;
+  return `0x${address.padStart(32 * 2, '0')}`;
 }
 
 export function parseStructTag(type: string): StructTag {
@@ -126,7 +124,7 @@ export function parseStructTag(type: string): StructTag {
     : [];
 
   return {
-    address: normalizeSuiAddress(address),
+    address: normalizeAddress(address),
     module,
     name,
     typeParams,
