@@ -4,9 +4,9 @@ import {
   InputGenerateTransactionPayloadData,
   InputViewFunctionData,
   MoveValue,
-} from '@aptos-labs/ts-sdk';
+} from "@aptos-labs/ts-sdk";
 
-import invariant from 'tiny-invariant';
+import invariant from "tiny-invariant";
 
 import {
   ConstructorArgs,
@@ -30,20 +30,20 @@ import {
   QuoteAmountOutArgs,
   GetSrAmountOutArgs,
   GetAmountOutArgs,
-} from './dex.types';
-import { PACKAGES, Network } from './constants';
-import { getDefaultConstructorArgs, toConfig, hexToUtf8 } from './utils';
-import { FA_ADDRESSES, COIN_TYPES } from './constants';
-import { propOr, pathOr } from 'ramda';
+} from "./dex.types";
+import { PACKAGES, Network } from "./constants";
+import { getDefaultConstructorArgs, toConfig, hexToUtf8 } from "./utils";
+import { FA_ADDRESSES, COIN_TYPES } from "./constants";
+import { propOr, pathOr } from "ramda";
 
 export class InterestV2 {
   #client: Aptos;
   #package: Package;
   #utilsPackage: Package;
-  #interfaceModule = 'interest_v2_entry';
-  #routerModule = 'interest_v2_router';
-  #ammModule = 'interest_v2_pool';
-  #queryModule = 'interest_v2_query';
+  #interfaceModule = "interest_v2_entry";
+  #routerModule = "interest_v2_router";
+  #ammModule = "interest_v2_pool";
+  #queryModule = "interest_v2_query";
 
   network: Network;
   feePrecision = 1_000_000_000n;
@@ -54,9 +54,9 @@ export class InterestV2 {
       ...args,
     };
 
-    invariant(data.client, 'Client is required');
-    invariant(data.network, 'Network is required');
-    invariant(PACKAGES[data.network], 'Invalid network');
+    invariant(data.client, "Client is required");
+    invariant(data.network, "Network is required");
+    invariant(PACKAGES[data.network], "Invalid network");
 
     this.#client = data.client;
     this.#package = PACKAGES[data.network].INTEREST_V2;
@@ -68,16 +68,16 @@ export class InterestV2 {
     name,
     symbol,
     decimals = 8,
-    iconURI = '',
-    projectURI = '',
+    iconURI = "",
+    projectURI = "",
     totalSupply,
     recipient,
   }: CreateFaArgs): InputGenerateTransactionPayloadData {
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
-    invariant(totalSupply > 0n, 'Total supply is required');
+    invariant(totalSupply > 0n, "Total supply is required");
 
     return {
       function: `${this.#package.address}::${this.#interfaceModule}::create_fa`,
@@ -106,8 +106,8 @@ export class InterestV2 {
     name,
     symbol,
     decimals = 8,
-    iconURI = '',
-    projectURI = '',
+    iconURI = "",
+    projectURI = "",
     totalSupply,
     recipient,
     liquidityMemeAmount,
@@ -115,14 +115,14 @@ export class InterestV2 {
   }: DeployMemeWithCoinArgs): InputGenerateTransactionPayloadData {
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
-    invariant(totalSupply > 0n, 'Total supply is required');
+    invariant(totalSupply > 0n, "Total supply is required");
     invariant(
       liquidityMemeAmount > 0n && totalSupply >= liquidityMemeAmount,
-      'Liquidity meme amount is required'
+      "Liquidity meme amount is required"
     );
-    invariant(liquidityAptosAmount > 0n, 'Liquidity aptos amount is required');
+    invariant(liquidityAptosAmount > 0n, "Liquidity aptos amount is required");
 
     return {
       function: `${this.#package.address}::${this.#interfaceModule}::deploy_meme_with_coin`,
@@ -145,8 +145,8 @@ export class InterestV2 {
     name,
     symbol,
     decimals = 8,
-    iconURI = '',
-    projectURI = '',
+    iconURI = "",
+    projectURI = "",
     totalSupply,
     recipient,
     liquidityMemeAmount,
@@ -154,14 +154,14 @@ export class InterestV2 {
   }: DeployMemeWithFaArgs): InputGenerateTransactionPayloadData {
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
-    invariant(totalSupply > 0n, 'Total supply is required');
+    invariant(totalSupply > 0n, "Total supply is required");
     invariant(
       liquidityMemeAmount > 0n && totalSupply >= liquidityMemeAmount,
-      'Liquidity meme amount is required'
+      "Liquidity meme amount is required"
     );
-    invariant(liquidityAptosAmount > 0n, 'Liquidity aptos amount is required');
+    invariant(liquidityAptosAmount > 0n, "Liquidity aptos amount is required");
 
     return {
       function: `${this.#package.address}::${this.#interfaceModule}::deploy_meme_with_fa`,
@@ -187,13 +187,13 @@ export class InterestV2 {
     amountB,
     recipient,
   }: AddLiquidityArgs): InputGenerateTransactionPayloadData {
-    invariant(AccountAddress.isValid({ input: faA }).valid, 'FA A is required');
-    invariant(AccountAddress.isValid({ input: faB }).valid, 'FA B is required');
-    invariant(amountA > 0n, 'Amount A is required');
-    invariant(amountB > 0n, 'Amount B is required');
+    invariant(AccountAddress.isValid({ input: faA }).valid, "FA A is required");
+    invariant(AccountAddress.isValid({ input: faB }).valid, "FA B is required");
+    invariant(amountA > 0n, "Amount A is required");
+    invariant(amountB > 0n, "Amount B is required");
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
 
     return {
@@ -209,13 +209,13 @@ export class InterestV2 {
     amountB,
     recipient,
   }: AddLiquidityCoinsArgs): InputGenerateTransactionPayloadData {
-    invariant(coinA, 'Coin A is required');
-    invariant(coinB, 'Coin B is required');
-    invariant(amountA > 0n, 'Amount A is required');
-    invariant(amountB > 0n, 'Amount B is required');
+    invariant(coinA, "Coin A is required");
+    invariant(coinB, "Coin B is required");
+    invariant(amountA > 0n, "Amount A is required");
+    invariant(amountB > 0n, "Amount B is required");
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
     return {
       function: `${this.#package.address}::${this.#interfaceModule}::add_liquidity_coins`,
@@ -231,13 +231,13 @@ export class InterestV2 {
     amountB,
     recipient,
   }: AddLiquidityOneCoinArgs): InputGenerateTransactionPayloadData {
-    invariant(coinA, 'Coin A is required');
-    invariant(AccountAddress.isValid({ input: faB }).valid, 'FA B is required');
-    invariant(amountA > 0n, 'Amount A is required');
-    invariant(amountB > 0n, 'Amount B is required');
+    invariant(coinA, "Coin A is required");
+    invariant(AccountAddress.isValid({ input: faB }).valid, "FA B is required");
+    invariant(amountA > 0n, "Amount A is required");
+    invariant(amountB > 0n, "Amount B is required");
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
 
     return {
@@ -254,12 +254,12 @@ export class InterestV2 {
   }: RemoveLiquidityArgs): InputGenerateTransactionPayloadData {
     invariant(
       AccountAddress.isValid({ input: lpFa }).valid,
-      'LP FA is required'
+      "LP FA is required"
     );
-    invariant(amount > 0n, 'Amount is required');
+    invariant(amount > 0n, "Amount is required");
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
 
     return {
@@ -286,11 +286,11 @@ export class InterestV2 {
     minAmountOut,
     recipient,
   }: SwapPathArgs): InputGenerateTransactionPayloadData {
-    invariant(path.length >= 2, 'Path is required');
-    invariant(amountIn > 0n, 'Amount in is required');
+    invariant(path.length >= 2, "Path is required");
+    invariant(amountIn > 0n, "Amount in is required");
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
 
     return {
@@ -306,11 +306,11 @@ export class InterestV2 {
     minAmountOut,
     recipient,
   }: SwapPathCoinInArgs): InputGenerateTransactionPayloadData {
-    invariant(path.length >= 1, 'Path is required');
-    invariant(amountIn > 0n, 'Amount in is required');
+    invariant(path.length >= 1, "Path is required");
+    invariant(amountIn > 0n, "Amount in is required");
     invariant(
       AccountAddress.isValid({ input: recipient }).valid,
-      'Invalid recipient'
+      "Invalid recipient"
     );
 
     return {
@@ -321,7 +321,7 @@ export class InterestV2 {
   }
 
   public async pathExists(fas: string[]) {
-    invariant(fas.length >= 2, 'Path is required');
+    invariant(fas.length >= 2, "Path is required");
     const payload: InputViewFunctionData = {
       function: `${this.#package.address.toString()}::${this.#routerModule}::path_exists`,
       functionArguments: [fas],
@@ -383,7 +383,7 @@ export class InterestV2 {
     try {
       const data = await this.#client.view({ payload });
 
-      return propOr(null, 'inner', data[0]);
+      return propOr(null, "inner", data[0]);
     } catch {
       return null;
     }
@@ -398,7 +398,7 @@ export class InterestV2 {
     try {
       const data = await this.#client.view({ payload });
 
-      const tag = (propOr([], 'vec', data[0]) as Object[])[0] as {
+      const tag = (propOr([], "vec", data[0]) as Object[])[0] as {
         account_address: string;
         module_name: string;
         struct_name: string;
@@ -426,7 +426,7 @@ export class InterestV2 {
 
     const data = await this.#client.view({ payload });
 
-    invariant(data.length === 11, 'Invalid data');
+    invariant(data.length === 11, "Invalid data");
 
     return this.#poolFromData(data);
   }
@@ -434,8 +434,8 @@ export class InterestV2 {
   public async getPoolFromFas({ faA, faB }: GetPoolFromFasArgs) {
     const pool = await this.getPoolAddress({ faA, faB });
 
-    invariant(pool.exists, 'Pool does not exist');
-    invariant(pool.poolAddress.toString(), 'Pool address is required');
+    invariant(pool.exists, "Pool does not exist");
+    invariant(pool.poolAddress.toString(), "Pool address is required");
 
     const payload: InputViewFunctionData = {
       function: `${this.#package.address.toString()}::${this.#queryModule}::pool_info`,
@@ -444,13 +444,13 @@ export class InterestV2 {
 
     const data = await this.#client.view({ payload });
 
-    invariant(data.length === 11, 'Invalid data');
+    invariant(data.length === 11, "Invalid data");
 
     return this.#poolFromData(data);
   }
 
   public async getPoolPage({ pageSize, start }: GetPoolPageArgs) {
-    invariant(pageSize > 0, 'Page size must be greater than 0');
+    invariant(pageSize > 0, "Page size must be greater than 0");
 
     const payload: InputViewFunctionData = {
       function: `${this.#package.address.toString()}::${this.#queryModule}::get_pool_page`,
@@ -463,26 +463,26 @@ export class InterestV2 {
 
     const x = page[0];
 
-    const nextIndex = pathOr([], ['next_index', 'vec'], x);
-    const pools: Record<string, MoveValue>[] = propOr([], 'pools', x);
+    const nextIndex = pathOr([], ["next_index", "vec"], x);
+    const pools: Record<string, MoveValue>[] = propOr([], "pools", x);
 
     return {
-      hasNextPage: propOr(false, 'has_next_page', x),
+      hasNextPage: propOr(false, "has_next_page", x),
       nextIndex: nextIndex.length ? Number(nextIndex[0]) : null,
       pools: pools.map((elem: Record<string, MoveValue>) => ({
-        poolAddress: AccountAddress.from(propOr('0x0', 'pool_address', x)),
-        metadataX: AccountAddress.from(propOr('0x0', 'fa_x', elem)),
-        metadataY: AccountAddress.from(propOr('0x0', 'fa_y', elem)),
-        balanceX: BigInt(propOr('0', 'balance_x', elem)),
-        balanceY: BigInt(propOr('0', 'balance_y', elem)),
-        supply: BigInt(propOr('0', 'supply', elem)),
-        bidLiquidity: BigInt(propOr('0', 'bid_liquidity', elem)),
-        isSrMode: propOr(false, 'is_sr_mode', elem),
-        slotBalanceX: BigInt(propOr('0', 'slot_balance_x', elem)),
-        slotBalanceY: BigInt(propOr('0', 'slot_balance_y', elem)),
-        lastSlotTimestamp: BigInt(propOr('0', 'last_slot_timestamp', elem)),
+        poolAddress: AccountAddress.from(propOr("0x0", "pool_address", elem)),
+        metadataX: AccountAddress.from(propOr("0x0", "fa_x", elem)),
+        metadataY: AccountAddress.from(propOr("0x0", "fa_y", elem)),
+        balanceX: BigInt(propOr("0", "balance_x", elem)),
+        balanceY: BigInt(propOr("0", "balance_y", elem)),
+        supply: BigInt(propOr("0", "supply", elem)),
+        bidLiquidity: BigInt(propOr("0", "bid_liquidity", elem)),
+        isSrMode: propOr(false, "is_sr_mode", elem),
+        slotBalanceX: BigInt(propOr("0", "slot_balance_x", elem)),
+        slotBalanceY: BigInt(propOr("0", "slot_balance_y", elem)),
+        lastSlotTimestamp: BigInt(propOr("0", "last_slot_timestamp", elem)),
       })) as InterestV2Pool[],
-      totalPools: propOr(0, 'total_pools', x),
+      totalPools: propOr(0, "total_pools", x),
     };
   }
 
