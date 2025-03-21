@@ -15,7 +15,7 @@
       "types": "./dist/dex/index.d.ts"
     }
   },
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Interest Protocol DEX SDK",
   "publishConfig": {
     "access": "public"
