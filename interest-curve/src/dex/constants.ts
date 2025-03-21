@@ -108,7 +108,7 @@ export const TYPES = {
     OBJECT_CORE: '0x1::object::ObjectCore',
     COIN_STORE: '0x1::coin::CoinStore',
     FUNGIBLE_STORE: '0x1::fungible_asset::FungibleStore',
-    INTEREST_POOL: `${PACKAGES[Network.MovementMainnet].address.toString()}::pool::InterestCurvePool`,
+    INTEREST_POOL: `${PACKAGES[Network.MovementMainnet].address.toString()}::interest_curve_pool::InterestCurvePool`,
     VOLATILE_STATE: `${PACKAGES[Network.MovementMainnet].address.toString()}::volatile_pool::VolatileState`,
   },
   [Network.Bardock]: {
@@ -118,7 +118,7 @@ export const TYPES = {
     OBJECT_CORE: '0x1::object::ObjectCore',
     COIN_STORE: '0x1::coin::CoinStore',
     FUNGIBLE_STORE: '0x1::fungible_asset::FungibleStore',
-    INTEREST_POOL: `${PACKAGES[Network.Bardock].address.toString()}::pool::InterestCurvePool`,
+    INTEREST_POOL: `${PACKAGES[Network.Bardock].address.toString()}::interest_curve_pool::InterestCurvePool`,
     VOLATILE_STATE: `${PACKAGES[Network.Bardock].address.toString()}::volatile_pool::VolatileState`,
   },
 } as const;
