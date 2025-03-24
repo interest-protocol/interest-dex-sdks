@@ -1,26 +1,33 @@
-import { account, bardockClient, bardockSDK, COINS } from './utils';
+import {
+  account,
+  FA_ADDRESSES,
+  movementMainnetClient,
+  movementMainnetSDK,
+} from './utils';
+
+const mainnetFAs = FA_ADDRESSES.movementMainnet;
 
 (async () => {
-  const data = bardockSDK.newStablePoolWithCoins({
-    coinTypes: [COINS.bardock.MOVE, COINS.bardock.MOVE],
+  const data = movementMainnetSDK.newStablePoolWithFas({
+    metadatas: [mainnetFAs.USDCe.toString(), mainnetFAs.MOVE.toString()],
   });
-
-  const transaction = await bardockClient.transaction.build.simple({
+  console.log(data);
+  const transaction = await movementMainnetClient.transaction.build.simple({
     sender: account.accountAddress,
     data,
   });
 
-  const senderAuthenticator = await bardockClient.sign({
+  const senderAuthenticator = await movementMainnetClient.sign({
     signer: account,
     transaction,
   });
 
-  const submittedTx = await bardockClient.transaction.submit.simple({
+  const submittedTx = await movementMainnetClient.transaction.submit.simple({
     transaction,
     senderAuthenticator,
   });
 
-  const transactionResponse = await bardockClient.waitForTransaction({
+  const transactionResponse = await movementMainnetClient.waitForTransaction({
     transactionHash: submittedTx.hash,
   });
 

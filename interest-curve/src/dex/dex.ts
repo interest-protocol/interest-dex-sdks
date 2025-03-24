@@ -106,7 +106,7 @@ export class InterestCurve {
     invariant(args.metadatas.length >= 2, 'A pool must have at least 2 assets');
 
     return {
-      function: `${this.#package}::${this.#interfaceModule}::new`,
+      function: `${this.#package.address.toString()}::${this.#interfaceModule}::new_stable_pool`,
       functionArguments: [args.metadatas, args.initialA ?? this.#stableA],
     };
   }

@@ -48,6 +48,12 @@ export const FA_ADDRESSES = {
     TEST123: AccountAddress.from(
       '0xa8ba601f7af42c34d2cd2feee9d41e62160dcd77dd07a9e2308dff07b2a258e1'
     ),
+    USDCe: AccountAddress.from(
+      '0x83121c9f9b0527d1f056e21a950d6bf3b9e9e2e8353d0e95ccea726713cbea39'
+    ),
+    USDTe: AccountAddress.from(
+      '0x447721a30109c662dde9c73a0c2c9c9c459fb5e5a9c92f03c50fa69737f5d08d'
+    ),
   },
   [Network.Bardock]: {
     MOVE: AccountAddress.from('0xa'),
@@ -61,6 +67,21 @@ export const log = (x: any) => console.log(util.inspect(x, { depth: null }));
 
 export const STRICT_POOLS = {
   [Network.MovementMainnet]: [
+    {
+      isStable: false,
+      address: AccountAddress.from(
+        '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39'
+      ),
+      name: 'USDCe-MOVE',
+      fas: [
+        FUNGIBLE_ASSETS[Network.MovementMainnet][
+          FA_ADDRESSES[Network.MovementMainnet].USDCe.toString()
+        ],
+        FUNGIBLE_ASSETS[Network.MovementMainnet][
+          FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()
+        ],
+      ],
+    },
     {
       isStable: false,
       address: AccountAddress.from(
