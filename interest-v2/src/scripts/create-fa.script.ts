@@ -10,8 +10,8 @@ const POW_8 = 10n ** 8n;
 
 (async () => {
   const data = movementMainnetSDK.createFa({
-    name: 'Test1',
-    symbol: 'TEST1',
+    name: 'Test123',
+    symbol: 'TEST123',
     totalSupply: 1_000_000_000n * POW_8,
     recipient: account.accountAddress.toString(),
     decimals: 8,

@@ -1,16 +1,13 @@
-import { FA_ADDRESSES, Network } from 'src/dex';
+import { log, movementMainnetSDK } from './utils';
 
-import { bardockSDK, log, STRICT_POOLS } from './utils';
+const POOL_ID =
+  '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39';
 
-const bardockPools = STRICT_POOLS[Network.Bardock];
-const bardockFungibleAssets = FA_ADDRESSES[Network.Bardock];
-
+const POW_8 = BigInt(10 ** 8);
 (async () => {
-  const data = await bardockSDK.quoteSwap({
-    pool: bardockPools[0].address.toString(),
-    faIn: bardockFungibleAssets.MOVE.toString(),
-    faOut: bardockFungibleAssets.TEST.toString(),
-    amountIn: BigInt(10000),
+  const data = await movementMainnetSDK.quoteAddLiquidity({
+    pool: POOL_ID,
+    amountsIn: [POW_8, 0n],
   });
 
   log(data);

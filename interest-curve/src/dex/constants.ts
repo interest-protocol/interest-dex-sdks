@@ -55,15 +55,9 @@ export const COINS = {
 export const FA_ADDRESSES = {
   [Network.MovementMainnet]: {
     MOVE: AccountAddress.from('0xa'),
-    TEST: AccountAddress.from(
-      '0x795ccc8807a0a5a993d7416f9701bd88558c759be432deab279ca7e6d97abb08'
-    ),
   },
   [Network.Bardock]: {
     MOVE: AccountAddress.from('0xa'),
-    TEST: AccountAddress.from(
-      '0xa9e24310872baa7625891b9aa7e698d3140fef5faaa933b65c3ff8216a364598'
-    ),
   },
 } as const;
 
@@ -76,12 +70,6 @@ export const FUNGIBLE_ASSETS = {
       iconUri: '',
       decimals: 8,
     },
-    [FA_ADDRESSES[Network.MovementMainnet].TEST.toString()]: {
-      symbol: 'TEST',
-      name: 'Test Coin',
-      address: FA_ADDRESSES[Network.MovementMainnet].TEST,
-      iconUri: '',
-    },
   },
   [Network.Bardock]: {
     [FA_ADDRESSES[Network.Bardock].MOVE.toString()]: {
@@ -90,12 +78,6 @@ export const FUNGIBLE_ASSETS = {
       address: FA_ADDRESSES[Network.Bardock].MOVE,
       iconUri: '',
       decimals: 8,
-    },
-    [FA_ADDRESSES[Network.Bardock].TEST.toString()]: {
-      symbol: 'TEST',
-      name: 'Test Coin',
-      address: FA_ADDRESSES[Network.Bardock].TEST,
-      iconUri: '',
     },
   },
 } as const;

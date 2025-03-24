@@ -4,7 +4,6 @@ import invariant from 'tiny-invariant';
 import util from 'util';
 
 import {
-  FA_ADDRESSES,
   FUNGIBLE_ASSETS,
   getDefaultClient,
   InterestCurve,
@@ -40,6 +39,24 @@ export const COINS = {
   },
 };
 
+export const FA_ADDRESSES = {
+  [Network.MovementMainnet]: {
+    MOVE: AccountAddress.from('0xa'),
+    TEST: AccountAddress.from(
+      '0xa9e24310872baa7625891b9aa7e698d3140fef5faaa933b65c3ff8216a364598'
+    ),
+    TEST123: AccountAddress.from(
+      '0xa8ba601f7af42c34d2cd2feee9d41e62160dcd77dd07a9e2308dff07b2a258e1'
+    ),
+  },
+  [Network.Bardock]: {
+    MOVE: AccountAddress.from('0xa'),
+    TEST: AccountAddress.from(
+      '0xa9e24310872baa7625891b9aa7e698d3140fef5faaa933b65c3ff8216a364598'
+    ),
+  },
+} as const;
+
 export const log = (x: any) => console.log(util.inspect(x, { depth: null }));
 
 export const STRICT_POOLS = {
@@ -47,15 +64,15 @@ export const STRICT_POOLS = {
     {
       isStable: false,
       address: AccountAddress.from(
-        '0xdfa2be63f0a812001c537a9dd283b76bb31138846a9129bd39855979f04ab87b'
+        '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39'
       ),
-      name: 'MOVE-TEST',
+      name: 'MOVE-TEST123',
       fas: [
         FUNGIBLE_ASSETS[Network.MovementMainnet][
           FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()
         ],
         FUNGIBLE_ASSETS[Network.MovementMainnet][
-          FA_ADDRESSES[Network.MovementMainnet].TEST.toString()
+          FA_ADDRESSES[Network.MovementMainnet].TEST123.toString()
         ],
       ],
     },

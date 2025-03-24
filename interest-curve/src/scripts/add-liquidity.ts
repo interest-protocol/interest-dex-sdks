@@ -1,7 +1,8 @@
-import { FA_ADDRESSES, Network } from 'src/dex';
+import { Network } from 'src/dex';
 
 import {
   account,
+  FA_ADDRESSES,
   movementMainnetClient,
   movementMainnetSDK,
   STRICT_POOLS,
@@ -17,9 +18,9 @@ const POW_8 = 100000000n;
     pool: pools[0].address.toString(),
     fasIn: [
       movementMainnetFAs.MOVE.toString(),
-      movementMainnetFAs.TEST.toString(),
+      movementMainnetFAs.TEST123.toString(),
     ],
-    amounts: [POW_8, POW_8 * 2n],
+    amounts: [POW_8 / 20n, (POW_8 * 2n) / 20n],
     recipient: account.accountAddress.toString(),
     minAmountOut: 0n,
   });

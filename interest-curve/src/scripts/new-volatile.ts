@@ -1,5 +1,10 @@
-import { FA_ADDRESSES, Network } from '../dex';
-import { account, movementMainnetClient, movementMainnetSDK } from './utils';
+import { Network } from '../dex';
+import {
+  account,
+  FA_ADDRESSES,
+  movementMainnetClient,
+  movementMainnetSDK,
+} from './utils';
 
 const movementMainnetFAs = FA_ADDRESSES[Network.MovementMainnet];
 
@@ -7,7 +12,7 @@ const movementMainnetFAs = FA_ADDRESSES[Network.MovementMainnet];
   const data = movementMainnetSDK.newVolatilePoolWithFas({
     fas: [
       movementMainnetFAs.MOVE.toString(),
-      movementMainnetFAs.TEST.toString(),
+      movementMainnetFAs.TEST123.toString(),
     ],
     prices: [2n * movementMainnetSDK.PRECISION],
     a: 1000n,
