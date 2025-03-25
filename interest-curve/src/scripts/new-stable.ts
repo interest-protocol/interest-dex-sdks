@@ -9,9 +9,9 @@ const mainnetFAs = FA_ADDRESSES.movementMainnet;
 
 (async () => {
   const data = movementMainnetSDK.newStablePoolWithFas({
-    metadatas: [mainnetFAs.USDCe.toString(), mainnetFAs.MOVE.toString()],
+    metadatas: [mainnetFAs.USDCe.toString(), mainnetFAs.USDTe.toString()],
   });
-  console.log(data);
+
   const transaction = await movementMainnetClient.transaction.build.simple({
     sender: account.accountAddress,
     data,
