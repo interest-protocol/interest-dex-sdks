@@ -15,7 +15,7 @@
       "types": "./dist/dex/index.d.ts"
     }
   },
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Interest Protocol DEX SDK",
   "publishConfig": {
     "access": "public"
@@ -40,7 +40,8 @@
     "build": "pnpm run clean && pnpm run build:tsup && pnpm run build:types",
     "prepublishOnly": "pnpm run clean && pnpm run build",
     "get-pool-page": "tsx ./src/scripts/get-pool-page.ts",
-    "initialize": "tsx ./src/scripts/initialize.ts"
+    "initialize": "tsx ./src/scripts/initialize.ts",
+    "get-simple-info": "tsx ./src/scripts/get-simple-info.ts"
   },
   "keywords": [],
   "license": "ISC",

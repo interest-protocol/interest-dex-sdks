@@ -638,6 +638,17 @@ export class InterestCurve {
     return this.#client.view({ payload });
   }
 
+  public async get_pools_simple_info({ pageSize, start }: GetPoolPageArgs) {
+    invariant(pageSize > 0, 'Page size must be greater than 0');
+
+    const payload: InputViewFunctionData = {
+      function: `${this.#package.address.toString()}::${this.#queryModule}::get_pools_simple_info`,
+      functionArguments: [start, pageSize],
+    };
+
+    return this.#client.view({ payload });
+  }
+
   #assertNewVolatilePoolArgs({
     prices,
     midFee,
