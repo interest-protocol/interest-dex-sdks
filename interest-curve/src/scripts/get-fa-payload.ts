@@ -1,11 +1,11 @@
-import { FUNGIBLE_ASSETS, Network } from 'src/dex';
+import { WHITELISTED_FAS } from 'src/dex';
 
-import { log, portoSDK } from './utils';
-
-const fas = FUNGIBLE_ASSETS[Network.Porto];
+import { log, movementMainnetSDK } from './utils';
 
 (async () => {
-  const data = await portoSDK.getFAMetadata(fas.USDC.address.toString());
+  const data = await movementMainnetSDK.getFAMetadata(
+    WHITELISTED_FAS.MOVE.toString()
+  );
 
   log(data);
 })();

@@ -11,7 +11,7 @@ import {
   const data = movementMainnetSDK.swap({
     pool: STRICT_POOLS[Network.MovementMainnet][0].address.toString(),
     faIn: FA_ADDRESSES[Network.MovementMainnet].MOVE.toString(),
-    faOut: FA_ADDRESSES[Network.MovementMainnet].TEST.toString(),
+    faOut: FA_ADDRESSES[Network.MovementMainnet].MOVE.toString(),
     amountIn: 1000n,
     recipient: account.accountAddress.toString(),
     minAmountOut: 0n,

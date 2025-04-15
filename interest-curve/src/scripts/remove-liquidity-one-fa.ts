@@ -1,32 +1,38 @@
-import { FA_ADDRESSES, Network } from 'src/dex';
+import {
+  MAINNET_POOLS,
+  WHITELISTED_CURVE_LP_COINS,
+  WHITELISTED_FAS,
+} from 'src/dex';
 
-import { account, bardockClient, bardockSDK, STRICT_POOLS } from './utils';
+import { account, movementMainnetClient, movementMainnetSDK } from './utils';
 
 (async () => {
-  const data = bardockSDK.removeLiquidityOneFa({
-    pool: STRICT_POOLS[Network.Bardock][0].address.toString(),
-    faOut: FA_ADDRESSES[Network.Bardock].TEST.toString(),
+  const data = movementMainnetSDK.removeLiquidityOneFa({
+    pool: MAINNET_POOLS[
+      WHITELISTED_CURVE_LP_COINS.USDCe_WETHe_VOLATILE.toString()
+    ].address.toString(),
+    faOut: WHITELISTED_FAS.WETHe.toString(),
     amount: 10_000n,
     recipient: account.accountAddress.toString(),
     minAmountOut: 0n,
   });
 
-  const transaction = await bardockClient.transaction.build.simple({
+  const transaction = await movementMainnetClient.transaction.build.simple({
     sender: account.accountAddress,
     data,
   });
 
-  const senderAuthenticator = await bardockClient.sign({
+  const senderAuthenticator = await movementMainnetClient.sign({
     signer: account,
     transaction,
   });
 
-  const submittedTx = await bardockClient.transaction.submit.simple({
+  const submittedTx = await movementMainnetClient.transaction.submit.simple({
     transaction,
     senderAuthenticator,
   });
 
-  const transactionResponse = await bardockClient.waitForTransaction({
+  const transactionResponse = await movementMainnetClient.waitForTransaction({
     transactionHash: submittedTx.hash,
   });
 

@@ -22,16 +22,19 @@ const movementMainnetFAs = FA_ADDRESSES[Network.MovementMainnet];
     sender: account.accountAddress,
     data,
   });
-  const senderAuthenticator = await movementMainnetClient.sign({
-    signer: account,
-    transaction,
-  });
-  const submittedTx = await movementMainnetClient.transaction.submit.simple({
-    transaction,
-    senderAuthenticator,
-  });
-  const transactionResponse = await movementMainnetClient.waitForTransaction({
-    transactionHash: submittedTx.hash,
-  });
-  console.log(transactionResponse);
+
+  console.log(transaction);
+
+  // const senderAuthenticator = await movementMainnetClient.sign({
+  //   signer: account,
+  //   transaction,
+  // });
+  // const submittedTx = await movementMainnetClient.transaction.submit.simple({
+  //   transaction,
+  //   senderAuthenticator,
+  // });
+  // const transactionResponse = await movementMainnetClient.waitForTransaction({
+  //   transactionHash: submittedTx.hash,
+  // });
+  // console.log(transactionResponse);
 })();

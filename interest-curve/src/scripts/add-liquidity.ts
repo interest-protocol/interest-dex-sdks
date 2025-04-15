@@ -18,7 +18,7 @@ const POW_8 = 100000000n;
     pool: pools[0].address.toString(),
     fasIn: [
       movementMainnetFAs.MOVE.toString(),
-      movementMainnetFAs.TEST123.toString(),
+      movementMainnetFAs.WETHe.toString(),
     ],
     amounts: [POW_8 / 20n, (POW_8 * 2n) / 20n],
     recipient: account.accountAddress.toString(),
