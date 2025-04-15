@@ -1,13 +1,13 @@
 import { log, movementMainnetSDK } from './utils';
 
 const POOL_ID =
-  '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39';
+  '0x691877d4f5d4c1177d02f6ca3d399df4624af265533d305c008f6cb15d1567bc';
 
-const POW_8 = BigInt(10 ** 8);
 (async () => {
-  const data = await movementMainnetSDK.quoteAddLiquidity({
+  const data = await movementMainnetSDK.quoteRemoveLiquidityOneFa({
     pool: POOL_ID,
-    amountsIn: [POW_8, 0n],
+    faOut: '0x83121c9f9b0527d1f056e21a950d6bf3b9e9e2e8353d0e95ccea726713cbea39',
+    amountIn: 2_000n,
   });
 
   log(data);

@@ -7,8 +7,8 @@ const coinTypes = COINS[Network.Bardock];
 (async () => {
   const data = bardockSDK.swapCoinToFa({
     pool: STRICT_POOLS[Network.Bardock][0].address.toString(),
-    coinIn: coinTypes.MOVE.type,
-    faOut: FA_ADDRESSES[Network.Bardock].TEST.toString(),
+    coinIn: coinTypes['0x1::aptos_coin::AptosCoin'].type,
+    faOut: FA_ADDRESSES[Network.Bardock].MOVE.toString(),
     amountIn: 100n,
     recipient: account.accountAddress.toString(),
     minAmountOut: 0n,

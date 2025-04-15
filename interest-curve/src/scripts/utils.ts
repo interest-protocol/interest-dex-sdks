@@ -39,20 +39,29 @@ export const COINS = {
   },
 };
 
+export const TEST_MAINNET_FA_ADDRESSES = {
+  TEST: AccountAddress.from(
+    '0xa9e24310872baa7625891b9aa7e698d3140fef5faaa933b65c3ff8216a364598'
+  ),
+  TEST123: AccountAddress.from(
+    '0xa8ba601f7af42c34d2cd2feee9d41e62160dcd77dd07a9e2308dff07b2a258e1'
+  ),
+};
+
 export const FA_ADDRESSES = {
   [Network.MovementMainnet]: {
     MOVE: AccountAddress.from('0xa'),
-    TEST: AccountAddress.from(
-      '0xa9e24310872baa7625891b9aa7e698d3140fef5faaa933b65c3ff8216a364598'
-    ),
-    TEST123: AccountAddress.from(
-      '0xa8ba601f7af42c34d2cd2feee9d41e62160dcd77dd07a9e2308dff07b2a258e1'
-    ),
     USDCe: AccountAddress.from(
       '0x83121c9f9b0527d1f056e21a950d6bf3b9e9e2e8353d0e95ccea726713cbea39'
     ),
     USDTe: AccountAddress.from(
       '0x447721a30109c662dde9c73a0c2c9c9c459fb5e5a9c92f03c50fa69737f5d08d'
+    ),
+    WETHe: AccountAddress.from(
+      '0x908828f4fb0213d4034c3ded1630bbd904e8a3a6bf3c63270887f0b06653a376'
+    ),
+    WBTCe: AccountAddress.from(
+      '0xb06f29f24dde9c6daeec1f930f14a441a8d6c0fbea590725e88b340af3e1939c'
     ),
   },
   [Network.Bardock]: {
@@ -64,6 +73,26 @@ export const FA_ADDRESSES = {
 } as const;
 
 export const log = (x: any) => console.log(util.inspect(x, { depth: null }));
+
+export const TEST_MAINNET_TEST_POOLS = {
+  [Network.MovementMainnet]: [
+    {
+      isStable: false,
+      address: AccountAddress.from(
+        '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39'
+      ),
+      name: 'MOVE-TEST123',
+      fas: [
+        FUNGIBLE_ASSETS[Network.MovementMainnet][
+          FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()
+        ],
+        FUNGIBLE_ASSETS[Network.MovementMainnet][
+          TEST_MAINNET_FA_ADDRESSES.TEST.toString()
+        ],
+      ],
+    },
+  ],
+};
 
 export const STRICT_POOLS = {
   [Network.MovementMainnet]: [
@@ -79,21 +108,6 @@ export const STRICT_POOLS = {
         ],
         FUNGIBLE_ASSETS[Network.MovementMainnet][
           FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()
-        ],
-      ],
-    },
-    {
-      isStable: false,
-      address: AccountAddress.from(
-        '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39'
-      ),
-      name: 'MOVE-TEST123',
-      fas: [
-        FUNGIBLE_ASSETS[Network.MovementMainnet][
-          FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()
-        ],
-        FUNGIBLE_ASSETS[Network.MovementMainnet][
-          FA_ADDRESSES[Network.MovementMainnet].TEST123.toString()
         ],
       ],
     },

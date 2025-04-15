@@ -167,3 +167,95 @@ export const DEFAULT_VOLATILE_POOL = {
     d: BigInt(0),
   },
 };
+
+export const BLACKLISTED_POOLS = [
+  // Stable USDCe/MOVE
+  AccountAddress.from(
+    '0xc4d03e70f504bcf04f21f975cf2eb94723fbe221d834a7a6b0bc72303281d7da'
+  ),
+  // Volatile Move/Test123
+  AccountAddress.from(
+    '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39'
+  ),
+  // Volatile Move/Test
+  AccountAddress.from(
+    '0xdfa2be63f0a812001c537a9dd283b76bb31138846a9129bd39855979f04ab87b'
+  ),
+];
+
+export const WHITELISTED_FAS = {
+  MOVE: AccountAddress.from('0xa'),
+  USDCe: AccountAddress.from(
+    '0x83121c9f9b0527d1f056e21a950d6bf3b9e9e2e8353d0e95ccea726713cbea39'
+  ),
+  USDTe: AccountAddress.from(
+    '0x447721a30109c662dde9c73a0c2c9c9c459fb5e5a9c92f03c50fa69737f5d08d'
+  ),
+  WETHe: AccountAddress.from(
+    '0x908828f4fb0213d4034c3ded1630bbd904e8a3a6bf3c63270887f0b06653a376'
+  ),
+  WBTCe: AccountAddress.from(
+    '0xb06f29f24dde9c6daeec1f930f14a441a8d6c0fbea590725e88b340af3e1939c'
+  ),
+};
+
+export const WHITELISTED_CURVE_LP_COINS = {
+  USDCe_USDTe_STABLE: AccountAddress.from(
+    '0x54c89a961dd60e30f1c03ba2c6f5a052e7ed0ba36fcca3c1153f06449199b285'
+  ),
+  USDCe_MOVE_VOLATILE: AccountAddress.from(
+    '0x691877d4f5d4c1177d02f6ca3d399df4624af265533d305c008f6cb15d1567bc'
+  ),
+  USDTe_MOVE_VOLATILE: AccountAddress.from(
+    '0x12061cb8e5a17ae7d34dd3371479f7cec323e4ad16b8991792fb496d739e87af'
+  ),
+  USDCe_WETHe_VOLATILE: AccountAddress.from(
+    '0x110a99c29036cf12de428f55c6c1e1838578e3db6d17a0b3b4e6d2e101d124f1'
+  ),
+  WETHe_MOVE_VOLATILE: AccountAddress.from(
+    '0x89d75aae2a4cc65660bd28d989582a69a3c1579ed32d965d346f21e5bf191330'
+  ),
+};
+
+export const MAINNET_POOLS = {
+  [WHITELISTED_CURVE_LP_COINS.USDCe_USDTe_STABLE.toString()]: {
+    isStable: false,
+    address: AccountAddress.from(
+      '0x54c89a961dd60e30f1c03ba2c6f5a052e7ed0ba36fcca3c1153f06449199b285'
+    ),
+    name: 'USDCe-USDTe Stable',
+    fas: [WHITELISTED_FAS.USDCe, WHITELISTED_FAS.USDTe],
+  },
+  [WHITELISTED_CURVE_LP_COINS.USDCe_MOVE_VOLATILE.toString()]: {
+    isStable: false,
+    address: AccountAddress.from(
+      '0x691877d4f5d4c1177d02f6ca3d399df4624af265533d305c008f6cb15d1567bc'
+    ),
+    name: 'USDCe-MOVE Volatile',
+    fas: [WHITELISTED_FAS.USDCe, WHITELISTED_FAS.MOVE],
+  },
+  [WHITELISTED_CURVE_LP_COINS.USDTe_MOVE_VOLATILE.toString()]: {
+    isStable: false,
+    address: AccountAddress.from(
+      '0x12061cb8e5a17ae7d34dd3371479f7cec323e4ad16b8991792fb496d739e87af'
+    ),
+    name: 'USDTe-MOVE Volatile',
+    fas: [WHITELISTED_FAS.USDTe, WHITELISTED_FAS.MOVE],
+  },
+  [WHITELISTED_CURVE_LP_COINS.USDCe_WETHe_VOLATILE.toString()]: {
+    isStable: false,
+    address: AccountAddress.from(
+      '0x110a99c29036cf12de428f55c6c1e1838578e3db6d17a0b3b4e6d2e101d124f1'
+    ),
+    name: 'USDCe-WETHe Volatile',
+    fas: [WHITELISTED_FAS.USDCe, WHITELISTED_FAS.WETHe],
+  },
+  [WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE.toString()]: {
+    isStable: false,
+    address: AccountAddress.from(
+      '0x89d75aae2a4cc65660bd28d989582a69a3c1579ed32d965d346f21e5bf191330'
+    ),
+    name: 'WETHe-MOVE Volatile',
+    fas: [WHITELISTED_FAS.WETHe, WHITELISTED_FAS.MOVE],
+  },
+};

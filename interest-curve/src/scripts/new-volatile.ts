@@ -11,11 +11,11 @@ const movementMainnetFAs = FA_ADDRESSES[Network.MovementMainnet];
 (async () => {
   const data = movementMainnetSDK.newVolatilePoolWithFas({
     fas: [
+      movementMainnetFAs.WETHe.toString(),
       movementMainnetFAs.MOVE.toString(),
-      movementMainnetFAs.TEST123.toString(),
     ],
-    prices: [2n * movementMainnetSDK.PRECISION],
-    a: 1000n,
+    prices: [5779n * movementMainnetSDK.PRECISION],
+    a: 500000n,
   });
 
   const transaction = await movementMainnetClient.transaction.build.simple({
