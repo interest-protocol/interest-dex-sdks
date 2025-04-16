@@ -3,16 +3,23 @@ import {
   Aptos,
   AptosConfig,
   MoveResource,
+  MoveValue,
   Network as AptosNetwork,
 } from '@aptos-labs/ts-sdk';
 import { pathOr, propOr } from 'ramda';
 
-import { DEFAULT_VOLATILE_POOL, Network, TYPES } from './constants';
+import {
+  DEFAULT_VOLATILE_POOL,
+  FUNGIBLE_ASSETS,
+  Network,
+  TYPES,
+} from './constants';
 import {
   CoinBalance,
   ConstructorArgs,
   FaMetadata,
   FaPayload,
+  Farm,
   FaSupply,
   InterestCurvePool,
   MoveResourceType,
@@ -160,6 +167,31 @@ export const toFaPayload = (resources: MoveResource[]): FaPayload => {
       pathOr('0x0', ['data', 'owner'], objectCoreData)
     ),
   };
+};
+
+export const toFarms = (farms: string[], values: MoveValue[]): Farm[] => {
+  return farms.map((farm, index) => {
+    const value = (values[index] as any)[0];
+
+    return {
+      rewards: value.rewards.map(
+        ({ inner }: { inner: string }, index: number) => {
+          const fa = FUNGIBLE_ASSETS[AccountAddress.from(inner).toString()];
+
+          return {
+            rewardFa: fa,
+            balance: BigInt(value.reward_balances[index]),
+            rewardsPerSecond: BigInt(value.reward_per_second[index]),
+          };
+        }
+      ),
+      address: farm,
+      stakedBalance: BigInt(value.staked_balance),
+      startTimestamp: BigInt(value.start_timestamp),
+      stakedFa:
+        FUNGIBLE_ASSETS[AccountAddress.from(value.staked_fa.inner).toString()],
+    };
+  });
 };
 
 export const toInterestPool = (

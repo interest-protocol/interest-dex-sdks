@@ -17,6 +17,7 @@ import {
   GetPoolAddressArgs,
   GetPoolPageArgs,
   HarvestArgs,
+  NewFarmArgs,
   NewStablePoolWithCoinsArgs,
   NewStablePoolWithFasArgs,
   NewVolatilePoolWithCoinsArgs,
@@ -32,6 +33,7 @@ import {
   QuoteSwapFaToCoinArgs,
   RemoveLiquidityArgs,
   RemoveLiquidityOneFaArgs,
+  SetRewardsPerSecondArgs,
   StakeArgs,
   StakeCoinArgs,
   SwapArgs,
@@ -44,6 +46,7 @@ import {
   NEW_STABLE_POOL_COIN_FUNCTION_NAME,
   NEW_VOLATILE_POOL_COIN_FUNCTION_NAME,
   toFaPayload,
+  toFarms,
   toInterestPool,
 } from './utils';
 
@@ -53,7 +56,7 @@ export class InterestCurve {
   #interfaceModule = 'interest_curve_entry';
   #routerModule = 'interest_curve_router';
   #queryModule = 'interest_curve_query';
-
+  #farmModule = 'farm';
   // Default values for stable pools
   #stableA = 1500n;
 
@@ -350,6 +353,63 @@ export class InterestCurve {
     };
   }
 
+  // ===  FARM START ===
+
+  public newFarm({
+    startTimestamp,
+    rewardFas,
+    stakedFa,
+  }: NewFarmArgs): InputGenerateTransactionPayloadData {
+    const now = Date.now() / 1000;
+    invariant(startTimestamp > now, 'Start timestamp must be in the future');
+
+    invariant(
+      rewardFas.length > 0,
+      'Reward fas must be an array with at least one fa'
+    );
+
+    invariant(
+      all((x) => AccountAddress.isValid({ input: x }).valid, rewardFas),
+      'All reward fas must be valid'
+    );
+
+    invariant(
+      AccountAddress.isValid({ input: stakedFa }).valid,
+      'Staked fa must be valid'
+    );
+
+    return {
+      function: `${this.#package.address.toString()}::${this.#interfaceModule}::new_farm`,
+      functionArguments: [
+        stakedFa,
+        rewardFas,
+        BigInt(Math.ceil(startTimestamp)),
+      ],
+    };
+  }
+
+  public setRewardsPerSecond({
+    farm,
+    rewardFa,
+    rewardsPerSecond,
+  }: SetRewardsPerSecondArgs): InputGenerateTransactionPayloadData {
+    return {
+      function: `${this.#package.address.toString()}::${this.#farmModule}::set_rewards_per_second`,
+      functionArguments: [farm, rewardFa, rewardsPerSecond],
+    };
+  }
+
+  public async getFarms(farms: string[]) {
+    const payload: InputViewFunctionData = {
+      function: `${this.#package.address.toString()}::${this.#queryModule}::get_farm`,
+      functionArguments: [farms],
+    };
+
+    const data = await this.#client.view({ payload });
+
+    return toFarms(farms, data);
+  }
+
   public stake({
     farm,
     amount,
@@ -421,6 +481,8 @@ export class InterestCurve {
       functionArguments: [farm, faOut, recipient],
     };
   }
+
+  // ===  FARM END ===
 
   public async quoteSwap({ pool, faIn, faOut, amountIn }: QuoteSwapArgs) {
     const payload: InputViewFunctionData = {
@@ -616,13 +678,13 @@ export class InterestCurve {
       return {
         balance: BigInt(propOr(0, 'balance', x)),
         frozen: propOr(false, 'frozen', x),
-        fa: FUNGIBLE_ASSETS[this.network][key],
+        fa: FUNGIBLE_ASSETS[key],
       };
     } catch {
       return {
         balance: BigInt(0),
         frozen: false,
-        fa: FUNGIBLE_ASSETS[this.network][fa],
+        fa: FUNGIBLE_ASSETS[fa],
       };
     }
   }

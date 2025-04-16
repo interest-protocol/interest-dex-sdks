@@ -41,7 +41,10 @@
     "prepublishOnly": "pnpm run clean && pnpm run build",
     "get-pool-page": "tsx ./src/scripts/get-pool-page.ts",
     "initialize": "tsx ./src/scripts/initialize.ts",
-    "get-simple-info": "tsx ./src/scripts/get-simple-info.ts"
+    "get-simple-info": "tsx ./src/scripts/get-simple-info.ts",
+    "new-farm": "tsx ./src/scripts/farm/new-farm.ts",
+    "set-rewards-per-second": "tsx ./src/scripts/farm/set-rewards-per-second.ts",
+    "get-farm": "tsx ./src/scripts/farm/get-farm.ts"
   },
   "keywords": [],
   "license": "ISC",

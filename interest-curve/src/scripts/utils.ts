@@ -4,10 +4,10 @@ import invariant from 'tiny-invariant';
 import util from 'util';
 
 import {
-  FUNGIBLE_ASSETS,
   getDefaultClient,
   InterestCurve,
   Network,
+  WHITELISTED_FAS,
 } from '../dex';
 
 dotenv.config();
@@ -63,6 +63,9 @@ export const FA_ADDRESSES = {
     WBTCe: AccountAddress.from(
       '0xb06f29f24dde9c6daeec1f930f14a441a8d6c0fbea590725e88b340af3e1939c'
     ),
+    FIRE: AccountAddress.from(
+      '0x5f7f59e38a96dfe79830f53fe49a19e770f70a13ff30ce598a49e8f0a2b46861'
+    ),
   },
   [Network.Bardock]: {
     MOVE: AccountAddress.from('0xa'),
@@ -82,51 +85,7 @@ export const TEST_MAINNET_TEST_POOLS = {
         '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39'
       ),
       name: 'MOVE-TEST123',
-      fas: [
-        FUNGIBLE_ASSETS[Network.MovementMainnet][
-          FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()
-        ],
-        FUNGIBLE_ASSETS[Network.MovementMainnet][
-          TEST_MAINNET_FA_ADDRESSES.TEST.toString()
-        ],
-      ],
-    },
-  ],
-};
-
-export const STRICT_POOLS = {
-  [Network.MovementMainnet]: [
-    {
-      isStable: false,
-      address: AccountAddress.from(
-        '0x486cc5aacea27797e8f47971ac5b0bc301d1aafd9b5510811360a7d28768ad39'
-      ),
-      name: 'USDCe-MOVE',
-      fas: [
-        FUNGIBLE_ASSETS[Network.MovementMainnet][
-          FA_ADDRESSES[Network.MovementMainnet].USDCe.toString()
-        ],
-        FUNGIBLE_ASSETS[Network.MovementMainnet][
-          FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()
-        ],
-      ],
-    },
-  ],
-  [Network.Bardock]: [
-    {
-      isStable: false,
-      address: AccountAddress.from(
-        '0x61a089010e51980eb9716983ef9e6905ad0cb7733612f59da091dd27efa75f9e'
-      ),
-      name: 'MOVE-TEST',
-      fas: [
-        FUNGIBLE_ASSETS[Network.Bardock][
-          FA_ADDRESSES[Network.Bardock].MOVE.toString()
-        ],
-        FUNGIBLE_ASSETS[Network.Bardock][
-          FA_ADDRESSES[Network.Bardock].TEST.toString()
-        ],
-      ],
+      fas: [WHITELISTED_FAS.MOVE, TEST_MAINNET_FA_ADDRESSES.TEST],
     },
   ],
 };

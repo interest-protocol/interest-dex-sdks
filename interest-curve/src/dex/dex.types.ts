@@ -217,6 +217,14 @@ export interface FaPayload {
   owner: AccountAddress;
 }
 
+export interface WhitelistedFaMetadata {
+  symbol: string;
+  name: string;
+  address: AccountAddress;
+  iconUri: string;
+  decimals: number;
+}
+
 export interface MoveResourceType {
   account_address: string;
   module_name: string;
@@ -302,3 +310,33 @@ export interface GetPoolPageArgs {
   start: number;
   pageSize: number;
 }
+
+// ===  FARM START ===
+
+export interface Reward {
+  rewardFa: WhitelistedFaMetadata;
+  balance: bigint;
+  rewardsPerSecond: bigint;
+}
+
+export interface Farm {
+  address: string;
+  stakedBalance: bigint;
+  startTimestamp: bigint;
+  stakedFa: WhitelistedFaMetadata;
+  rewards: Reward[];
+}
+
+export interface NewFarmArgs {
+  startTimestamp: number;
+  rewardFas: string[];
+  stakedFa: string;
+}
+
+export interface SetRewardsPerSecondArgs {
+  farm: string;
+  rewardFa: string;
+  rewardsPerSecond: bigint;
+}
+
+// ===  FARM END ===
