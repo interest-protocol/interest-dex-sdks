@@ -136,7 +136,7 @@ export interface UnstakeArgs {
 
 export interface HarvestArgs {
   farm: string;
-  faOut: string;
+  rewardFa: string;
   recipient: string;
 }
 
@@ -337,6 +337,18 @@ export interface SetRewardsPerSecondArgs {
   farm: string;
   rewardFa: string;
   rewardsPerSecond: bigint;
+}
+
+export interface AddRewardFaArgs {
+  farm: string;
+  rewardFa: string;
+  amount: bigint;
+}
+
+export interface GetFarmAccountArgs {
+  user: string;
+  farm: string;
+  rewardFas: string[];
 }
 
 // ===  FARM END ===

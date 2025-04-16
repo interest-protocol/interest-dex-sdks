@@ -1,21 +1,12 @@
-import {
-  MAINNET_POOLS,
-  WHITELISTED_CURVE_LP_COINS,
-  WHITELISTED_FAS,
-} from '../dex/constants';
-import { account, movementMainnetClient, movementMainnetSDK } from './utils';
+import { FARMS, WHITELISTED_FAS } from 'src/dex';
 
-// const POW_8 = 100000000n;
+import { account, movementMainnetClient, movementMainnetSDK } from '../utils';
 
 (async () => {
-  const data = movementMainnetSDK.addLiquidity({
-    pool: MAINNET_POOLS[
-      WHITELISTED_CURVE_LP_COINS.USDTe_MOVE_VOLATILE.toString()
-    ].address.toString(),
-    fasIn: [WHITELISTED_FAS.USDTe.toString(), WHITELISTED_FAS.MOVE.toString()],
-    amounts: [2700n, 1000000n],
+  const data = movementMainnetSDK.harvest({
+    farm: FARMS[0].address.toString(),
+    rewardFa: WHITELISTED_FAS.FIRE.toString(),
     recipient: account.accountAddress.toString(),
-    minAmountOut: 0n,
   });
 
   const transaction = await movementMainnetClient.transaction.build.simple({

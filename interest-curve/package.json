@@ -15,7 +15,7 @@
       "types": "./dist/dex/index.d.ts"
     }
   },
-  "version": "3.3.0",
+  "version": "4.0.0",
   "description": "Interest Protocol DEX SDK",
   "publishConfig": {
     "access": "public"
@@ -44,7 +44,12 @@
     "get-simple-info": "tsx ./src/scripts/get-simple-info.ts",
     "new-farm": "tsx ./src/scripts/farm/new-farm.ts",
     "set-rewards-per-second": "tsx ./src/scripts/farm/set-rewards-per-second.ts",
-    "get-farm": "tsx ./src/scripts/farm/get-farm.ts"
+    "get-farm": "tsx ./src/scripts/farm/get-farm.ts",
+    "add-reward-fa": "tsx ./src/scripts/farm/add-reward-fa.ts",
+    "stake": "tsx ./src/scripts/farm/stake.ts",
+    "get-account": "tsx ./src/scripts/farm/get-account.ts",
+    "unstake": "tsx ./src/scripts/farm/unstake.ts",
+    "harvest": "tsx ./src/scripts/farm/harvest.ts"
   },
   "keywords": [],
   "license": "ISC",

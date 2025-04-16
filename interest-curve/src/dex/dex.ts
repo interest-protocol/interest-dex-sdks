@@ -10,10 +10,12 @@ import invariant from 'tiny-invariant';
 import { FUNGIBLE_ASSETS, Network, PACKAGES, TYPES } from './constants';
 import {
   AddLiquidityArgs,
+  AddRewardFaArgs,
   AssertNewVolatilePoolArgs,
   ConstructorArgs,
   FaPayload,
   GetFaPrimaryStoreArgs,
+  GetFarmAccountArgs,
   GetPoolAddressArgs,
   GetPoolPageArgs,
   HarvestArgs,
@@ -410,6 +412,64 @@ export class InterestCurve {
     return toFarms(farms, data);
   }
 
+  public addRewardFa({
+    farm,
+    rewardFa,
+    amount,
+  }: AddRewardFaArgs): InputGenerateTransactionPayloadData {
+    invariant(AccountAddress.isValid({ input: farm }).valid, 'Farm is invalid');
+    invariant(
+      AccountAddress.isValid({ input: rewardFa }).valid,
+      'Reward fa is invalid'
+    );
+    invariant(amount > 0n, 'Amount must be greater than 0');
+
+    return {
+      function: `${this.#package.address.toString()}::${this.#interfaceModule}::add_reward_fa`,
+      functionArguments: [farm, rewardFa, amount],
+    };
+  }
+
+  public async getFarmAccount({ user, farm, rewardFas }: GetFarmAccountArgs) {
+    const amountPayload: InputViewFunctionData = {
+      function: `${this.#package.address.toString()}::${this.#farmModule}::account_amount`,
+      functionArguments: [farm, user],
+    };
+
+    const rewardsPayloads = rewardFas.map(
+      (rewardFa) =>
+        ({
+          function: `${this.#package.address.toString()}::${this.#farmModule}::pending_rewards`,
+          functionArguments: [farm, user, rewardFa],
+        }) as InputViewFunctionData
+    );
+
+    const [amount, ...rewards] = await Promise.all([
+      this.#client.view({ payload: amountPayload }),
+      ...rewardsPayloads.map((payload) => this.#client.view({ payload })),
+    ]);
+
+    invariant(
+      amount.length > 0 && typeof amount[0] === 'string',
+      'Amount is empty'
+    );
+
+    invariant(
+      rewards.length > 0 && rewards.every((x) => typeof x[0] === 'string'),
+      'Rewards are empty'
+    );
+
+    const rewardsData = rewards.map((x) => x[0] as string);
+
+    return {
+      amount: BigInt(amount[0]),
+      rewards: rewardFas.map((rewardFa, index) => ({
+        fa: rewardFa,
+        amount: BigInt(rewardsData[index]),
+      })),
+    };
+  }
+
   public stake({
     farm,
     amount,
@@ -463,7 +523,7 @@ export class InterestCurve {
 
   public harvest({
     farm,
-    faOut,
+    rewardFa,
     recipient,
   }: HarvestArgs): InputGenerateTransactionPayloadData {
     invariant(AccountAddress.isValid({ input: farm }).valid, 'Farm is invalid');
@@ -472,13 +532,13 @@ export class InterestCurve {
       'Recipient is invalid'
     );
     invariant(
-      AccountAddress.isValid({ input: faOut }).valid,
-      'Fa out is invalid'
+      AccountAddress.isValid({ input: rewardFa }).valid,
+      'Reward fa is invalid'
     );
 
     return {
       function: `${this.#package.address.toString()}::${this.#interfaceModule}::harvest`,
-      functionArguments: [farm, faOut, recipient],
+      functionArguments: [farm, rewardFa, recipient],
     };
   }
 
