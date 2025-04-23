@@ -1,13 +1,15 @@
 import { log, movementMainnetSDK } from './utils';
 
 const POOL_ID =
-  '0x691877d4f5d4c1177d02f6ca3d399df4624af265533d305c008f6cb15d1567bc';
+  '0x89d75aae2a4cc65660bd28d989582a69a3c1579ed32d965d346f21e5bf191330';
+
+const POW_8 = 100000000n;
 
 (async () => {
-  const data = await movementMainnetSDK.quoteRemoveLiquidityOneFa({
+  console.log(BigInt(Math.floor(0.6 * 100000000)));
+  const data = await movementMainnetSDK.quoteAddLiquidity({
     pool: POOL_ID,
-    faOut: '0x83121c9f9b0527d1f056e21a950d6bf3b9e9e2e8353d0e95ccea726713cbea39',
-    amountIn: 2_000n,
+    amountsIn: [BigInt(Math.floor(0.6 * 100000000)), 3500n * POW_8],
   });
 
   log(data);

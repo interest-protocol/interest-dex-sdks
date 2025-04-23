@@ -30,7 +30,7 @@ import {
   findObjectCore,
   findPairedCoinType,
 } from './getters';
-import { addAllVolatileState } from './volatile-utils';
+import { addAllPoolState } from './pool-utils';
 
 const MOVEMENT_MAINNET_RPC_URL = 'https://mainnet.movementnetwork.xyz/v1';
 const MOVEMENT_MAINNET_INDEXER_URL =
@@ -200,7 +200,7 @@ export const toInterestPool = (
   network: Network
 ): InterestCurvePool => {
   const data = resources.reduce((acc, resource) => {
-    return addAllVolatileState(acc, resource, network);
+    return addAllPoolState(acc, resource, network);
   }, DEFAULT_VOLATILE_POOL as InterestCurvePool);
 
   return {

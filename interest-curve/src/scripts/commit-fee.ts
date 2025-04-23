@@ -1,24 +1,18 @@
-import { FARMS, Network } from 'src/dex';
+import { PACKAGES } from 'src/dex';
 
-import {
-  account,
-  FA_ADDRESSES,
-  movementMainnetClient,
-  movementMainnetSDK,
-} from '../utils';
-
-const POW_8 = 100000000n;
+import { account, movementMainnetClient } from './utils';
 
 (async () => {
-  const data = movementMainnetSDK.addRewardFa({
-    farm: FARMS[4].address.toString(),
-    rewardFa: FA_ADDRESSES[Network.MovementMainnet].MOVE.toString(),
-    amount: 30_091n * POW_8,
-  });
-
   const transaction = await movementMainnetClient.transaction.build.simple({
     sender: account.accountAddress,
-    data,
+    data: {
+      function: `${PACKAGES.movementMainnet.address.toString()}::stable_pool::commit_fee`,
+      functionArguments: [
+        '0x54c89a961dd60e30f1c03ba2c6f5a052e7ed0ba36fcca3c1153f06449199b285',
+        10000000000000n,
+        200000000000000000n,
+      ],
+    },
   });
 
   const senderAuthenticator = await movementMainnetClient.sign({

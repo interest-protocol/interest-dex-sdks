@@ -81,6 +81,7 @@ export const TYPES = {
     FUNGIBLE_STORE: '0x1::fungible_asset::FungibleStore',
     INTEREST_POOL: `${PACKAGES[Network.MovementMainnet].address.toString()}::interest_curve_pool::InterestCurvePool`,
     VOLATILE_STATE: `${PACKAGES[Network.MovementMainnet].address.toString()}::volatile_pool::VolatileState`,
+    STABLE_STATE: `${PACKAGES[Network.MovementMainnet].address.toString()}::stable_pool::StableState`,
   },
   [Network.Bardock]: {
     PAIRED_COIN_TYPE: '0x1::coin::PairedCoinType',
@@ -91,6 +92,7 @@ export const TYPES = {
     FUNGIBLE_STORE: '0x1::fungible_asset::FungibleStore',
     INTEREST_POOL: `${PACKAGES[Network.Bardock].address.toString()}::interest_curve_pool::InterestCurvePool`,
     VOLATILE_STATE: `${PACKAGES[Network.Bardock].address.toString()}::volatile_pool::VolatileState`,
+    STABLE_STATE: `${PACKAGES[Network.Bardock].address.toString()}::stable_pool::StableState`,
   },
 } as const;
 

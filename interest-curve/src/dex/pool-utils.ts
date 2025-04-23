@@ -2,7 +2,7 @@ import { MoveResource } from '@aptos-labs/ts-sdk';
 import { pathOr } from 'ramda';
 
 import { Network, TYPES } from './constants';
-import { InterestCurvePool, VolatilePrice } from './dex.types';
+import { InterestCurvePool, StablePool, VolatilePrice } from './dex.types';
 
 const addSupply = (acc: InterestCurvePool, resource: MoveResource) => {
   if (resource.type === TYPES.movementMainnet.CONCURRENT_SUPPLY)
@@ -62,6 +62,48 @@ const addInterestPool = (
       fas: pathOr([], ['data', 'fas'], resource),
       isStable: pathOr(false, ['data', 'is_stable'], resource),
       nFas: pathOr(0, ['data', 'n_fas'], resource),
+    };
+
+  return acc;
+};
+
+// export interface StablePool {
+//   balances: ReadonlyArray<bigint>;
+//   initialA: bigint;
+//   futureA: bigint;
+//   initialATime: bigint;
+//   futureATime: bigint;
+//   adminFee: bigint;
+//   start: bigint;
+//   futureFee: null | bigint;
+//   futureAdminFee: null | bigint;
+// }
+
+const addStableState = (
+  acc: InterestCurvePool,
+  resource: MoveResource,
+  network: Network
+) => {
+  if (resource.type === TYPES[network].STABLE_STATE)
+    return {
+      ...acc,
+      data: {
+        balances: pathOr([], ['data', 'balances'], resource).map((x: string) =>
+          BigInt(x)
+        ),
+        initialA: BigInt(pathOr(0, ['data', 'initial_a'], resource)),
+        futureA: BigInt(pathOr(0, ['data', 'future_a'], resource)),
+        initialATime: BigInt(pathOr(0, ['data', 'initial_a_time'], resource)),
+        futureATime: BigInt(pathOr(0, ['data', 'future_a_time'], resource)),
+        adminFee: BigInt(pathOr(0, ['data', 'admin_fee'], resource)),
+        futureFee: BigInt(
+          pathOr([0], ['data', 'future_fee', 'vec'], resource)[0]
+        ),
+        futureAdminFee: BigInt(
+          pathOr([0], ['data', 'future_admin_fee', 'vec'], resource)[0]
+        ),
+        fee: BigInt(pathOr(0, ['data', 'fee'], resource)),
+      } as StablePool,
     };
 
   return acc;
@@ -182,7 +224,7 @@ const addVolatileState = (
   return acc;
 };
 
-export const addAllVolatileState = (
+export const addAllPoolState = (
   acc: InterestCurvePool,
   resource: MoveResource,
   network: Network
@@ -191,6 +233,8 @@ export const addAllVolatileState = (
   const y = addAdminFungibleStore(x, resource);
   const z = addLpFaMetadata(y, resource);
   const a = addInterestPool(z, resource, network);
-  const b = addVolatileState(a, resource, network);
+  const b = a.isStable
+    ? addStableState(a, resource, network)
+    : addVolatileState(a, resource, network);
   return b;
 };

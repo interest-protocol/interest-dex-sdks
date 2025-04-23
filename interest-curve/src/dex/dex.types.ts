@@ -275,6 +275,18 @@ export interface VolatilePool {
   balances: ReadonlyArray<bigint>;
 }
 
+export interface StablePool {
+  balances: ReadonlyArray<bigint>;
+  initialA: bigint;
+  futureA: bigint;
+  initialATime: bigint;
+  futureATime: bigint;
+  adminFee: bigint;
+  fee: bigint;
+  futureFee: null | bigint;
+  futureAdminFee: null | bigint;
+}
+
 export interface VolatilePrice {
   lastPrice: bigint;
   price: bigint;
@@ -303,7 +315,7 @@ export interface InterestCurvePool {
   lpFaMetadata: FaMetadata;
   nFas: number;
   fas: ReadonlyArray<string>;
-  data: VolatilePool;
+  data: VolatilePool | StablePool;
 }
 
 export interface GetPoolPageArgs {
