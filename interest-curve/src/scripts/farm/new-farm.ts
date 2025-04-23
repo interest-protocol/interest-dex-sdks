@@ -12,8 +12,8 @@ import {
 
   const data = movementMainnetSDK.newFarm({
     startTimestamp: now + 60 * 2,
-    rewardFas: [FA_ADDRESSES[Network.MovementMainnet].FIRE.toString()],
-    stakedFa: WHITELISTED_CURVE_LP_COINS.USDTe_MOVE_VOLATILE.toString(),
+    rewardFas: [FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()],
+    stakedFa: WHITELISTED_CURVE_LP_COINS.USDCe_WETHe_VOLATILE.toString(),
   });
 
   const transaction = await movementMainnetClient.transaction.build.simple({

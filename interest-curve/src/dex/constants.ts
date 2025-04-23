@@ -317,9 +317,41 @@ export const FARMS = [
   {
     name: 'USDTe-MOVE TEST FARM',
     address: AccountAddress.from(
-      '0xc7522bffe00b76d8a29d2a0290689868ca88d858c5923c725df23290500cc8c2'
+      '0xcfa4ec9b2d1d343a57f67163ab564f5dbab44a52c864a9566d4b3d6f2c26cb7'
     ),
     stakeFa: WHITELISTED_CURVE_LP_COINS.USDTe_MOVE_VOLATILE.toString(),
-    rewards: [WHITELISTED_FAS.FIRE.toString()],
+    rewards: [WHITELISTED_FAS.MOVE.toString()],
+  },
+  {
+    name: 'WETHe-MOVE TEST FARM',
+    address: AccountAddress.from(
+      '0xf54948ae917f101621ed02e813b0603f9c556f0041aa311d9e535c3b07a1ca6b'
+    ),
+    stakeFa: WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE.toString(),
+    rewards: [WHITELISTED_FAS.MOVE.toString()],
+  },
+  {
+    name: 'USDCe-MOVE TEST FARM',
+    address: AccountAddress.from(
+      '0xde6da5f201f66d9336574b75d87ac5dae938da6accab8dcd993f153d138cf749'
+    ),
+    stakeFa: WHITELISTED_CURVE_LP_COINS.USDCe_MOVE_VOLATILE.toString(),
+    rewards: [WHITELISTED_FAS.MOVE.toString()],
+  },
+  {
+    name: 'USDCe-USDTe Stable FARM',
+    address: AccountAddress.from(
+      '0x890a22a0bbdc83f7d2a9cd37d61d2d4261bd9296914fa007e5d47013f5fe3e76'
+    ),
+    stakeFa: WHITELISTED_CURVE_LP_COINS.USDCe_USDTe_STABLE.toString(),
+    rewards: [WHITELISTED_FAS.MOVE.toString()],
+  },
+  {
+    name: 'USDCe-WETHe Volatile FARM',
+    address: AccountAddress.from(
+      '0x67474006c35fdfbb2dbe312d1fb12ed68f15d945306d8aa7f9850f56ba336961'
+    ),
+    stakeFa: WHITELISTED_CURVE_LP_COINS.USDCe_WETHe_VOLATILE.toString(),
+    rewards: [WHITELISTED_FAS.MOVE.toString()],
   },
 ];
