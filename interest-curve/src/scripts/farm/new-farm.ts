@@ -11,9 +11,9 @@ import {
   const now = Date.now() / 1000;
 
   const data = movementMainnetSDK.newFarm({
-    startTimestamp: now + 60 * 2,
+    startTimestamp: now + 30,
     rewardFas: [FA_ADDRESSES[Network.MovementMainnet].MOVE.toString()],
-    stakedFa: WHITELISTED_CURVE_LP_COINS.USDCe_WETHe_VOLATILE.toString(),
+    stakedFa: WHITELISTED_CURVE_LP_COINS.MOVE_WETHe_VOLATILE.toString(),
   });
 
   const transaction = await movementMainnetClient.transaction.build.simple({

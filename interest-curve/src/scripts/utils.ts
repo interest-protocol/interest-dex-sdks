@@ -89,3 +89,6 @@ export const TEST_MAINNET_TEST_POOLS = {
     },
   ],
 };
+
+export const POW_8 = 100_000_000;
+export const POW_8BN = BigInt(POW_8);

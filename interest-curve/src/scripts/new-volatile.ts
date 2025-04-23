@@ -11,10 +11,10 @@ const movementMainnetFAs = FA_ADDRESSES[Network.MovementMainnet];
 (async () => {
   const data = movementMainnetSDK.newVolatilePoolWithFas({
     fas: [
-      movementMainnetFAs.WETHe.toString(),
       movementMainnetFAs.MOVE.toString(),
+      movementMainnetFAs.WETHe.toString(),
     ],
-    prices: [5779n * movementMainnetSDK.PRECISION],
+    prices: [7_324n * movementMainnetSDK.PRECISION],
     a: 500000n,
   });
 
@@ -23,18 +23,16 @@ const movementMainnetFAs = FA_ADDRESSES[Network.MovementMainnet];
     data,
   });
 
-  console.log(transaction);
-
-  // const senderAuthenticator = await movementMainnetClient.sign({
-  //   signer: account,
-  //   transaction,
-  // });
-  // const submittedTx = await movementMainnetClient.transaction.submit.simple({
-  //   transaction,
-  //   senderAuthenticator,
-  // });
-  // const transactionResponse = await movementMainnetClient.waitForTransaction({
-  //   transactionHash: submittedTx.hash,
-  // });
-  // console.log(transactionResponse);
+  const senderAuthenticator = await movementMainnetClient.sign({
+    signer: account,
+    transaction,
+  });
+  const submittedTx = await movementMainnetClient.transaction.submit.simple({
+    transaction,
+    senderAuthenticator,
+  });
+  const transactionResponse = await movementMainnetClient.waitForTransaction({
+    transactionHash: submittedTx.hash,
+  });
+  console.log(transactionResponse);
 })();

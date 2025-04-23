@@ -3,17 +3,21 @@ import {
   WHITELISTED_CURVE_LP_COINS,
   WHITELISTED_FAS,
 } from '../dex/constants';
-import { account, movementMainnetClient, movementMainnetSDK } from './utils';
-
-const POW_8 = 100000000n;
+import {
+  account,
+  movementMainnetClient,
+  movementMainnetSDK,
+  POW_8,
+  POW_8BN,
+} from './utils';
 
 (async () => {
   const data = movementMainnetSDK.addLiquidity({
     pool: MAINNET_POOLS[
-      WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE.toString()
+      WHITELISTED_CURVE_LP_COINS.MOVE_WETHe_VOLATILE.toString()
     ].address.toString(),
     fasIn: [WHITELISTED_FAS.WETHe.toString(), WHITELISTED_FAS.MOVE.toString()],
-    amounts: [BigInt(Math.floor(0.6 * 100000000)), 3467n * POW_8],
+    amounts: [BigInt(Math.floor(0.5 * POW_8)), 3662n * POW_8BN],
     recipient: account.accountAddress.toString(),
     minAmountOut: 0n,
   });

@@ -172,6 +172,10 @@ export const BLACKLISTED_POOLS = [
   AccountAddress.from(
     '0xdfa2be63f0a812001c537a9dd283b76bb31138846a9129bd39855979f04ab87b'
   ),
+  // Volatile WETHe/MOVE (WRONG PRICE)
+  AccountAddress.from(
+    '0x89d75aae2a4cc65660bd28d989582a69a3c1579ed32d965d346f21e5bf191330'
+  ),
 ];
 
 export const WHITELISTED_CURVE_LP_COINS = {
@@ -187,8 +191,8 @@ export const WHITELISTED_CURVE_LP_COINS = {
   USDCe_WETHe_VOLATILE: AccountAddress.from(
     '0x110a99c29036cf12de428f55c6c1e1838578e3db6d17a0b3b4e6d2e101d124f1'
   ),
-  WETHe_MOVE_VOLATILE: AccountAddress.from(
-    '0x89d75aae2a4cc65660bd28d989582a69a3c1579ed32d965d346f21e5bf191330'
+  MOVE_WETHe_VOLATILE: AccountAddress.from(
+    '0xc047546436145affa73b73df880d7b3a3c793e7155e0c6ad00a323ffc7e1d65a'
   ),
 };
 
@@ -263,10 +267,10 @@ export const FUNGIBLE_ASSETS = {
     iconUri: '',
     decimals: 9,
   },
-  [WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE.toString()]: {
-    symbol: 'WETHe-MOVE Volatile',
-    name: 'WETHe-MOVE Volatile',
-    address: WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE,
+  [WHITELISTED_CURVE_LP_COINS.MOVE_WETHe_VOLATILE.toString()]: {
+    symbol: 'MOVE-WETHe Volatile',
+    name: 'MOVE-WETHe Volatile',
+    address: WHITELISTED_CURVE_LP_COINS.MOVE_WETHe_VOLATILE,
     iconUri: '',
     decimals: 9,
   },
@@ -305,13 +309,13 @@ export const MAINNET_POOLS = {
     name: 'USDCe-WETHe Volatile',
     fas: [WHITELISTED_FAS.USDCe, WHITELISTED_FAS.WETHe],
   },
-  [WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE.toString()]: {
+  [WHITELISTED_CURVE_LP_COINS.MOVE_WETHe_VOLATILE.toString()]: {
     isStable: false,
     address: AccountAddress.from(
-      '0x89d75aae2a4cc65660bd28d989582a69a3c1579ed32d965d346f21e5bf191330'
+      '0xc047546436145affa73b73df880d7b3a3c793e7155e0c6ad00a323ffc7e1d65a'
     ),
-    name: 'WETHe-MOVE Volatile',
-    fas: [WHITELISTED_FAS.WETHe, WHITELISTED_FAS.MOVE],
+    name: 'MOVE-WETHe Volatile',
+    fas: [WHITELISTED_FAS.MOVE, WHITELISTED_FAS.WETHe],
   },
 };
 
@@ -325,11 +329,11 @@ export const FARMS = [
     rewards: [WHITELISTED_FAS.MOVE.toString()],
   },
   {
-    name: 'WETHe-MOVE TEST FARM',
+    name: 'MOVE-WETHe TEST FARM',
     address: AccountAddress.from(
-      '0xf54948ae917f101621ed02e813b0603f9c556f0041aa311d9e535c3b07a1ca6b'
+      '0xa1a8f55a926213c971bb99dd9812c7cba10dae34d3222a5b466643b99e96a0fc'
     ),
-    stakeFa: WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE.toString(),
+    stakeFa: WHITELISTED_CURVE_LP_COINS.MOVE_WETHe_VOLATILE.toString(),
     rewards: [WHITELISTED_FAS.MOVE.toString()],
   },
   {

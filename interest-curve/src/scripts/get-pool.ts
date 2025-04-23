@@ -1,8 +1,8 @@
+import { WHITELISTED_CURVE_LP_COINS } from '../dex/constants';
 import { log, movementMainnetSDK } from './utils';
-
 (async () => {
   const data = await movementMainnetSDK.getPool(
-    '0x691877d4f5d4c1177d02f6ca3d399df4624af265533d305c008f6cb15d1567bc'
+    WHITELISTED_CURVE_LP_COINS.WETHe_MOVE_VOLATILE.toString()
   );
 
   log(data);
