@@ -67,18 +67,6 @@ const addInterestPool = (
   return acc;
 };
 
-// export interface StablePool {
-//   balances: ReadonlyArray<bigint>;
-//   initialA: bigint;
-//   futureA: bigint;
-//   initialATime: bigint;
-//   futureATime: bigint;
-//   adminFee: bigint;
-//   start: bigint;
-//   futureFee: null | bigint;
-//   futureAdminFee: null | bigint;
-// }
-
 const addStableState = (
   acc: InterestCurvePool,
   resource: MoveResource,
