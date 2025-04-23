@@ -272,7 +272,7 @@ export const FUNGIBLE_ASSETS = {
 
 export const MAINNET_POOLS = {
   [WHITELISTED_CURVE_LP_COINS.USDCe_USDTe_STABLE.toString()]: {
-    isStable: false,
+    isStable: true,
     address: AccountAddress.from(
       '0x54c89a961dd60e30f1c03ba2c6f5a052e7ed0ba36fcca3c1153f06449199b285'
     ),
