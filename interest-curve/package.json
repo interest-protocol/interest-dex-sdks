@@ -51,7 +51,8 @@
     "unstake": "tsx ./src/scripts/farm/unstake.ts",
     "harvest": "tsx ./src/scripts/farm/harvest.ts",
     "commit-fee": "tsx ./src/scripts/commit-fee.ts",
-    "remove-reward": "tsx ./src/scripts/farm/remove-reward.ts"
+    "remove-reward": "tsx ./src/scripts/farm/remove-reward.ts",
+    "apply-fee": "tsx ./src/scripts/apply-fee.ts"
   },
   "keywords": [],
   "license": "ISC",
