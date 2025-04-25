@@ -19,6 +19,7 @@ import {
   GetPoolAddressArgs,
   GetPoolPageArgs,
   HarvestArgs,
+  InterestCurvePool,
   NewFarmArgs,
   NewStablePoolWithCoinsArgs,
   NewStablePoolWithFasArgs,
@@ -766,6 +767,18 @@ export class InterestCurve {
     const payload: InputViewFunctionData = {
       function: `${this.#package.address.toString()}::${this.#queryModule}::get_pools_simple_info`,
       functionArguments: [start, pageSize],
+    };
+
+    return this.#client.view({ payload });
+  }
+
+  public async stableA(pool: InterestCurvePool) {
+    invariant(pool.isStable, 'Pool is not stable');
+
+    const payload: InputViewFunctionData = {
+      function: `${this.#package.address.toString()}::stable_pool::a`,
+      functionArguments: [pool.address],
+      typeArguments: [TYPES[this.network].INTEREST_POOL],
     };
 
     return this.#client.view({ payload });

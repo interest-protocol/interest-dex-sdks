@@ -17,6 +17,16 @@ const addSupply = (acc: InterestCurvePool, resource: MoveResource) => {
   return acc;
 };
 
+const calculateStableA = (a0: bigint, t0: bigint, a1: bigint, t1: bigint) => {
+  const currentTime = BigInt(Date.now());
+
+  if (currentTime >= t1) return a1;
+
+  return a1 > a0
+    ? a0 + ((a1 - a0) * (currentTime - t0)) / (t1 - t0)
+    : a0 - ((a0 - a1) * (currentTime - t0)) / (t1 - t0);
+};
+
 const addAdminFungibleStore = (
   acc: InterestCurvePool,
   resource: MoveResource
@@ -73,10 +83,16 @@ const addStableState = (
   network: Network
 ) => {
   console.log(resource);
-  if (resource.type === TYPES[network].STABLE_STATE)
+  if (resource.type === TYPES[network].STABLE_STATE) {
     return {
       ...acc,
       data: {
+        a: calculateStableA(
+          BigInt(pathOr(0, ['data', 'initial_a'], resource)),
+          BigInt(pathOr(0, ['data', 'initial_a_time'], resource)),
+          BigInt(pathOr(0, ['data', 'future_a'], resource)),
+          BigInt(pathOr(0, ['data', 'future_a_time'], resource))
+        ),
         balances: pathOr([], ['data', 'balances'], resource).map((x: string) =>
           BigInt(x)
         ),
@@ -94,6 +110,7 @@ const addStableState = (
         fee: BigInt(pathOr(0, ['data', 'fee'], resource)),
       } as StablePool,
     };
+  }
 
   return acc;
 };

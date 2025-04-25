@@ -285,6 +285,7 @@ export interface StablePool {
   fee: bigint;
   futureFee: null | bigint;
   futureAdminFee: null | bigint;
+  a: bigint;
 }
 
 export interface VolatilePrice {
