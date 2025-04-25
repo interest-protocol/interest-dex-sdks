@@ -72,6 +72,7 @@ const addStableState = (
   resource: MoveResource,
   network: Network
 ) => {
+  console.log(resource);
   if (resource.type === TYPES[network].STABLE_STATE)
     return {
       ...acc,
@@ -85,10 +86,10 @@ const addStableState = (
         futureATime: BigInt(pathOr(0, ['data', 'future_a_time'], resource)),
         adminFee: BigInt(pathOr(0, ['data', 'admin_fee'], resource)),
         futureFee: BigInt(
-          pathOr([0], ['data', 'future_fee', 'vec'], resource)[0]
+          pathOr([0], ['data', 'future_fee', 'vec'], resource)[0] || 0
         ),
         futureAdminFee: BigInt(
-          pathOr([0], ['data', 'future_admin_fee', 'vec'], resource)[0]
+          pathOr([0], ['data', 'future_admin_fee', 'vec'], resource)[0] || 0
         ),
         fee: BigInt(pathOr(0, ['data', 'fee'], resource)),
       } as StablePool,
