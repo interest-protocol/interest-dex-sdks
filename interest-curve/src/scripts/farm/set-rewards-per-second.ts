@@ -7,11 +7,11 @@ import {
   movementMainnetSDK,
 } from '../utils';
 
-const REWARDS_PER_SECOND = 0.00952546296296296;
+const REWARDS_PER_SECOND = 0;
 
 (async () => {
   const data = movementMainnetSDK.setRewardsPerSecond({
-    farm: FARMS[1].address.toString(),
+    farm: FARMS[4].address.toString(),
     rewardFa: FA_ADDRESSES[Network.MovementMainnet].MOVE.toString(),
     rewardsPerSecond: BigInt(Math.floor(REWARDS_PER_SECOND * 1e8)),
   });

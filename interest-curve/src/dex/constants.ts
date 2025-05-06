@@ -321,7 +321,7 @@ export const MAINNET_POOLS = {
 
 export const FARMS = [
   {
-    name: 'USDTe-MOVE TEST FARM',
+    name: 'USDTe-MOVE FARM',
     address: AccountAddress.from(
       '0xcfa4ec9b2d1d343a57f67163ab564f5dbab44a52c864a9566d4b3d6f2c26cb7'
     ),
@@ -329,7 +329,7 @@ export const FARMS = [
     rewards: [WHITELISTED_FAS.MOVE.toString()],
   },
   {
-    name: 'MOVE-WETHe TEST FARM',
+    name: 'MOVE-WETHe FARM',
     address: AccountAddress.from(
       '0xa1a8f55a926213c971bb99dd9812c7cba10dae34d3222a5b466643b99e96a0fc'
     ),
@@ -337,7 +337,7 @@ export const FARMS = [
     rewards: [WHITELISTED_FAS.MOVE.toString()],
   },
   {
-    name: 'USDCe-MOVE TEST FARM',
+    name: 'USDCe-MOVE FARM',
     address: AccountAddress.from(
       '0xde6da5f201f66d9336574b75d87ac5dae938da6accab8dcd993f153d138cf749'
     ),

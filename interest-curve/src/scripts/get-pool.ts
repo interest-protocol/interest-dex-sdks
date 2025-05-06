@@ -3,7 +3,7 @@ import { log, movementMainnetSDK } from './utils';
 
 (async () => {
   const data = await movementMainnetSDK.getPool(
-    WHITELISTED_CURVE_LP_COINS.USDCe_USDTe_STABLE.toString()
+    WHITELISTED_CURVE_LP_COINS.USDCe_MOVE_VOLATILE.toString()
   );
 
   log(data);
