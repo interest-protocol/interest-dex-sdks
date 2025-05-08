@@ -52,7 +52,9 @@
     "harvest": "tsx ./src/scripts/farm/harvest.ts",
     "commit-fee": "tsx ./src/scripts/commit-fee.ts",
     "remove-reward": "tsx ./src/scripts/farm/remove-reward.ts",
-    "apply-fee": "tsx ./src/scripts/apply-fee.ts"
+    "apply-fee": "tsx ./src/scripts/apply-fee.ts",
+    "claim-stable-fees": "tsx ./src/scripts/claim-stable-fees.ts",
+    "claim-volatile-fees": "tsx ./src/scripts/claim-volatile-fees.ts"
   },
   "keywords": [],
   "license": "ISC",
