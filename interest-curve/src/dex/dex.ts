@@ -36,6 +36,7 @@ import {
   QuoteSwapFaToCoinArgs,
   RemoveLiquidityArgs,
   RemoveLiquidityOneFaArgs,
+  SetLpFaMetadataArgs,
   SetRewardsPerSecondArgs,
   StakeArgs,
   StakeCoinArgs,
@@ -60,6 +61,7 @@ export class InterestCurve {
   #routerModule = 'interest_curve_router';
   #queryModule = 'interest_curve_query';
   #farmModule = 'farm';
+  #poolModule = 'interest_curve_pool';
   // Default values for stable pools
   #stableA = 1500n;
 
@@ -782,6 +784,24 @@ export class InterestCurve {
     };
 
     return this.#client.view({ payload });
+  }
+
+  // === Admin Functions ===
+
+  public setLpFaMetadata({
+    pool,
+    name,
+    symbol,
+    iconUri,
+    projectUri,
+  }: SetLpFaMetadataArgs): InputGenerateTransactionPayloadData {
+    invariant(AccountAddress.isValid({ input: pool }).valid, 'Pool is invalid');
+
+    return {
+      function: `${this.#package.address.toString()}::${this.#poolModule}::set_lp_fa_metadata`,
+      functionArguments: [pool, name, symbol, iconUri, projectUri],
+      typeArguments: [TYPES[this.network].INTEREST_POOL],
+    };
   }
 
   #assertNewVolatilePoolArgs({

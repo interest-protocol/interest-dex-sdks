@@ -365,3 +365,15 @@ export interface GetFarmAccountArgs {
 }
 
 // ===  FARM END ===
+
+// ===  LP FA METADATA START ===
+
+export interface SetLpFaMetadataArgs {
+  pool: string;
+  name: string;
+  symbol: string;
+  iconUri: string;
+  projectUri: string;
+}
+
+// ===  LP FA METADATA END ===

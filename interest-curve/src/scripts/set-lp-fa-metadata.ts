@@ -1,24 +1,18 @@
-import { FARMS, Network } from 'src/dex';
+import { WHITELISTED_CURVE_LP_COINS } from 'src/dex';
 
-import {
-  account,
-  FA_ADDRESSES,
-  movementMainnetClient,
-  movementMainnetSDK,
-} from '../utils';
-
-const REWARDS_PER_SECOND = 0.050745701058201;
+import { account, movementMainnetClient, movementMainnetSDK } from './utils';
 
 (async () => {
-  const data = movementMainnetSDK.setRewardsPerSecond({
-    farm: FARMS[4].address.toString(),
-    rewardFa: FA_ADDRESSES[Network.MovementMainnet].MOVE.toString(),
-    rewardsPerSecond: BigInt(Math.floor(REWARDS_PER_SECOND * 1e8)),
-  });
-
   const transaction = await movementMainnetClient.transaction.build.simple({
     sender: account.accountAddress,
-    data,
+    data: movementMainnetSDK.setLpFaMetadata({
+      pool: WHITELISTED_CURVE_LP_COINS.MOVE_WETHe_VOLATILE.toString(),
+      name: 'IPX MOVE/WETHe Volatile',
+      symbol: 'IPX v-MOVE/WETHe',
+      iconUri:
+        'https://interestprotocol.infura-ipfs.io/ipfs/QmezXPykL5y92t6tvsJrmyRr2GUZHwSqyAmVUM32zcKWz2',
+      projectUri: 'https://www.interest.xyz/',
+    }),
   });
 
   const senderAuthenticator = await movementMainnetClient.sign({

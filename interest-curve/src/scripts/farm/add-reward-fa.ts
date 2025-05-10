@@ -11,9 +11,9 @@ const POW_8 = 100000000n;
 
 (async () => {
   const data = movementMainnetSDK.addRewardFa({
-    farm: FARMS[1].address.toString(),
+    farm: FARMS[4].address.toString(),
     rewardFa: FA_ADDRESSES[Network.MovementMainnet].MOVE.toString(),
-    amount: 11522n * POW_8,
+    amount: 30780n * POW_8,
   });
 
   const transaction = await movementMainnetClient.transaction.build.simple({

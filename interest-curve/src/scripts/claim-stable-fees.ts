@@ -10,7 +10,7 @@ import { account, movementMainnetClient, TREASURY_ADDRESS } from './utils';
       function: `${PACKAGES.movementMainnet.address.toString()}::interest_curve_entry::claim_stable_admin`,
       functionArguments: [
         WHITELISTED_CURVE_LP_COINS.USDCe_USDTe_STABLE,
-        WHITELISTED_FAS.USDTe.toString(),
+        WHITELISTED_FAS.USDCe.toString(),
         TREASURY_ADDRESS.toString(),
       ],
     },
@@ -32,7 +32,3 @@ import { account, movementMainnetClient, TREASURY_ADDRESS } from './utils';
 
   console.log(transactionResponse);
 })();
-
-// 128,297
-
-// Stable pool - 377_999
