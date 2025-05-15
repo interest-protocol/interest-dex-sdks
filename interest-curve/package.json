@@ -55,7 +55,8 @@
     "apply-fee": "tsx ./src/scripts/apply-fee.ts",
     "claim-stable-fees": "tsx ./src/scripts/claim-stable-fees.ts",
     "claim-volatile-fees": "tsx ./src/scripts/claim-volatile-fees.ts",
-    "set-lp-fa-metadata": "tsx ./src/scripts/set-lp-fa-metadata.ts"
+    "set-lp-fa-metadata": "tsx ./src/scripts/set-lp-fa-metadata.ts",
+    "quote-remove-liquidity": "tsx ./src/scripts/quote-remove-liquidity.ts"
   },
   "keywords": [],
   "license": "ISC",
